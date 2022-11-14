@@ -1,40 +1,38 @@
 package com.bridgelabz;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class EmployeeWage {
 
-    public final int fullTime = 1;
-    public final int partTime = 2;
-
-    String company;
+    static final int fullTime = 1;
+    static final int partTime = 2;
     int wagePerHr;
-    int daysPerMonth;
-    int workHrPerMonth;
-    int totalWage;
+    int empHrs = 0;
+    int monthlyWage = 0;
+    int totalWorkingHrs;
+    int totalWorkingDays;
+    int workedHrs = 0;
+    static int i;
+    static int company1TotalWage;
+    static int company2TotalWage;
+    static int company3TotalWage;
 
-    public EmployeeWage(String company, int wagePerHr, int daysPerMonth, int workHrPerMonth) {
-        this.company = company;
-        this.wagePerHr = wagePerHr;
-        this.daysPerMonth = daysPerMonth;
-        this.workHrPerMonth = workHrPerMonth;
-    }
+    public int empWageBuilder() {
 
-    @Override
-    public String toString() {
-        return "Total employee wage for " + company + " is " + totalWage;
-    }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the wage_per_hr: ");
+        wagePerHr = sc.nextInt();
+        System.out.println("Enter the total Working days: ");
+        totalWorkingDays = sc.nextInt();
+        System.out.println("Enter the total working hrs in a month: ");
+        totalWorkingHrs = sc.nextInt();
 
-    void calculateWage() {
+        for (i = 0; i < totalWorkingDays && workedHrs < totalWorkingHrs; i++) {
 
-        int empHrs;
-        int totalHours = 0;
-        int dailyWage;
-        int day = 0;
+            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 
-        while ((totalHours < workHrPerMonth) && (day < daysPerMonth)) {
-
-            int attendance = (int) (Math.floor(Math.random() * 10)) % 3;
-
-            switch (attendance) {
+            switch (empCheck) {
                 case fullTime:
                     empHrs = 8;
                     break;
@@ -45,27 +43,33 @@ public class EmployeeWage {
                     empHrs = 0;
                     break;
             }
-            totalHours = totalHours + empHrs;
-            dailyWage = wagePerHr * empHrs;
-            totalWage = totalWage + dailyWage;
-            day++;
+            int empWage = empHrs * wagePerHr;
+            System.out.println("Employee wage is: " + empWage);
+            monthlyWage = monthlyWage + empWage;
+            workedHrs = workedHrs + empHrs;
         }
-        System.out.println("Total work hours is: " + totalHours);
-        System.out.println("Total work days are: " + day);
+        System.out.println("Employee Monthly wage is: " + monthlyWage);
+        System.out.println("Working Days = " + i + ", Total working hrs = " + workedHrs);
+        return monthlyWage;
     }
 
     public static void main(String[] args) {
 
-        EmployeeWage Tata = new EmployeeWage("Tata", 10, 20, 100);
-        EmployeeWage Reliance = new EmployeeWage("Reliance", 20, 22, 90);
-        EmployeeWage Mahindra = new EmployeeWage("Mahindra", 20, 22, 90);
-        Tata.calculateWage();
-        System.out.println(Tata);
-        System.out.println("------------------------------------");
-        Reliance.calculateWage();
-        System.out.println(Reliance);
-        System.out.println("------------------------------------");
-        Mahindra.calculateWage();
-        System.out.println(Mahindra);
+        EmployeeWage company1 = new EmployeeWage();
+        EmployeeWage company2 = new EmployeeWage();
+        EmployeeWage company3 = new EmployeeWage();
+
+        company1TotalWage = company1.empWageBuilder();
+        System.out.println("Employee wage for company1: " + company1TotalWage);
+        company2TotalWage = company2.empWageBuilder();
+        System.out.println("Employee wage for company2: " + company2TotalWage);
+        company3TotalWage = company2.empWageBuilder();
+        System.out.println("Employee wage for company3: " + company3TotalWage);
+
+        EmployeeWage[] companyEmpWageArray = new EmployeeWage[3];
+        companyEmpWageArray[0] = company1;
+        companyEmpWageArray[1] = company2;
+        companyEmpWageArray[2] = company3;
+        System.out.println(Arrays.toString(companyEmpWageArray));
     }
 }

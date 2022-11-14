@@ -2,13 +2,10 @@ package com.bridgelabz;
 
 public class EmployeeWage {
 
-    static final int FullTIME = 1;
-    static final int PartTime = 2;
-    static final int WagePerHour = 20;
-    static final int WorkingDayPerMonth = 20;
-    static final int TotalWorkHours = 100;
+    static final int fullTime = 1;
+    static final int partTime = 2;
 
-    static void calculateWage() { // Creating calculate wage method
+    static void calculateWage(String company, int wagePerHr, int daysPerMonth, int workHrPerMonth) {
 
         int empHrs;
         int totalHours = 0;
@@ -16,14 +13,15 @@ public class EmployeeWage {
         int day = 0;
         int totalWage = 0;
 
-        while ((totalHours < TotalWorkHours) && (day < WorkingDayPerMonth)) {
+        while ((totalHours < workHrPerMonth) && (day < daysPerMonth)) {
+
             int attendance = (int) (Math.floor(Math.random() * 10)) % 3;
 
             switch (attendance) {
-                case FullTIME:
+                case fullTime:
                     empHrs = 8;
                     break;
-                case PartTime:
+                case partTime:
                     empHrs = 4;
                     break;
                 default:
@@ -31,18 +29,21 @@ public class EmployeeWage {
                     break;
             }
             totalHours = totalHours + empHrs;
-            dailyWage = WagePerHour * empHrs;
+            dailyWage = wagePerHr * empHrs;
             totalWage = totalWage + dailyWage;
             day++;
-            System.out.println("Day " +day+ " Emp work hour " +empHrs+ " wage is " +dailyWage);
+            System.out.println("Day " + day + " Emp work hour " + empHrs + " wage is " + dailyWage);
         }
-        System.out.println("Total work hours is: " +totalHours);
-        System.out.println("Total work days are: " +day);
-        System.out.println("Total wage is: " +totalWage);
+        System.out.println("Total work hours is: " + totalHours);
+        System.out.println("Total work days are: " + day);
+        System.out.println("Total Wage of company " + company + " is " + totalWage);
     }
 
     public static void main(String[] args) {
-
-        calculateWage();
+        calculateWage("Tata", 10, 20, 100);
+        System.out.println("---------------------------------");
+        calculateWage("Reliance", 20, 22, 90);
+        System.out.println("---------------------------------");
+        calculateWage("Mahindra", 15, 24, 95);
     }
 }
